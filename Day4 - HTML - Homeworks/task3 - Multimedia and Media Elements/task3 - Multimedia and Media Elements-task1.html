@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Hobby Section</title>
+    <style>
+      .hobby-section {
+        margin: 20px;
+        text-align: center;
+      }
+      h2 {
+        color: #333;
+      }
+      video,
+      audio {
+        width: 100%;
+        max-width: 600px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hobby-section">
+      <h2>My Favorite Hobby: Gardening</h2>
+
+      <!-- Embed YouTube Video -->
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/VIDEO_ID"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      >
+      </iframe>
+
+      <p>Check out this great video about gardening tips!</p>
+
+      <!-- Embed Audio File -->
+      <audio controls>
+        <source src="path/to/your/audiofile.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <p>Enjoy this relaxing gardening playlist!</p>
+    </div>
+  </body>
+</html>

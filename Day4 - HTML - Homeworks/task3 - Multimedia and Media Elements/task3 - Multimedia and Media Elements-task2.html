@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Hobby Section</title>
+    <style>
+      .hobby-section {
+        margin: 20px;
+        text-align: center;
+      }
+      h2 {
+        color: #333;
+      }
+      video,
+      audio {
+        width: 100%;
+        max-width: 600px;
+        margin: 10px 0;
+      }
+      .controls {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      .controls button {
+        margin: 0 5px;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hobby-section">
+      <h2>My Favorite Hobby: Gardening</h2>
+
+      <!-- Embed YouTube Video -->
+      <video id="myVideo" width="560" height="315" controls>
+        <source src="path/to/your/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="controls">
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+        <input
+          type="range"
+          id="videoVolume"
+          min="0"
+          max="1"
+          step="0.1"
+          value="1"
+          onchange="setVideoVolume(this.value)"
+        />
+      </div>
+
+      <p>Check out this great video about gardening tips!</p>
+
+      <!-- Embed Audio File -->
+      <audio id="myAudio" controls>
+        <source src="path/to/your/audiofile.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <div class="controls">
+        <button onclick="playAudio()">Play</button>
+        <button onclick="pauseAudio()">Pause</button>
+        <input
+          type="range"
+          id="audioVolume"
+          min="0"
+          max="1"
+          step="0.1"
+          value="1"
+          onchange="setAudioVolume(this.value)"
+        />
+      </div>
+
+      <p>Enjoy this relaxing gardening playlist!</p>
+    </div>
+
+    <script>
+      // Video controls
+      const myVideo = document.getElementById("myVideo");
+      const videoVolume = document.getElementById("videoVolume");
+
+      function playVideo() {
+        myVideo.play();
+      }
+
+      function pauseVideo() {
+        myVideo.pause();
+      }
+
+      function setVideoVolume(value) {
+        myVideo.volume = value;
+      }
+
+      // Audio controls
+      const myAudio = document.getElementById("myAudio");
+      const audioVolume = document.getElementById("audioVolume");
+
+      function playAudio() {
+        myAudio.play();
+      }
+
+      function pauseAudio() {
+        myAudio.pause();
+      }
+
+      function setAudioVolume(value) {
+        myAudio.volume = value;
+      }
+    </script>
+  </body>
+</html>
