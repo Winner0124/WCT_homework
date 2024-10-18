@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bouncing Ball Game with Geolocation</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      canvas {
+        border: 2px solid #333;
+        background-color: #fff;
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #location {
+        margin-top: 10px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <button id="getLocationBtn">Get My Location</button>
+    <div id="location"></div>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let ball = {
+        x: 50,
+        y: 50,
+        radius: 20,
+        dx: 4, // Change in x (velocity)
+        dy: 4, // Change in y (velocity)
+        color: getRandomColor(),
+      };
+
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      function drawBall() {
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fillStyle = ball.color;
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      function updateBall() {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        // Check for wall collision
+        if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+          ball.dx = -ball.dx; // Reverse direction
+          ball.color = getRandomColor(); // Change color
+        }
+
+        if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+          ball.dy = -ball.dy; // Reverse direction
+          ball.color = getRandomColor(); // Change color
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+        drawBall();
+        updateBall();
+        requestAnimationFrame(draw); // Keep the loop going
+      }
+
+      function showLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+              document.getElementById(
+                "location"
+              ).innerText = `Latitude: ${latitude}, Longitude: ${longitude}`;
+            },
+            (error) => {
+              document.getElementById(
+                "location"
+              ).innerText = `Error: ${error.message}`;
+            }
+          );
+        } else {
+          document.getElementById("location").innerText =
+            "Geolocation is not supported by this browser.";
+        }
+      }
+
+      document
+        .getElementById("getLocationBtn")
+        .addEventListener("click", showLocation);
+
+      draw(); // Start the animation
+    </script>
+  </body>
+</html>
