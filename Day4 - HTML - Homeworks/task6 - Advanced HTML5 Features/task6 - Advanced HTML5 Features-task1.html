@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Color Selector</title>
+    <style>
+      body {
+        transition: background-color 0.5s;
+        text-align: center;
+        padding: 50px;
+      }
+      select {
+        padding: 10px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Select Your Theme Color</h1>
+    <label for="colorSelect">Choose a color:</label>
+    <select id="colorSelect">
+      <option value="white">Default</option>
+      <option value="lightblue">Light Blue</option>
+      <option value="lightgreen">Light Green</option>
+      <option value="lightcoral">Light Coral</option>
+      <option value="lightgoldenrodyellow">Light Goldenrod Yellow</option>
+    </select>
+
+    <script>
+      // Function to load the color from localStorage and apply it
+      function loadColor() {
+        const savedColor = localStorage.getItem("themeColor");
+        if (savedColor) {
+          document.body.style.backgroundColor = savedColor;
+          document.getElementById("colorSelect").value = savedColor;
+        }
+      }
+
+      // Function to save the selected color to localStorage
+      function saveColor() {
+        const selectedColor = document.getElementById("colorSelect").value;
+        document.body.style.backgroundColor = selectedColor;
+        localStorage.setItem("themeColor", selectedColor);
+      }
+
+      // Load the saved color when the page loads
+      window.onload = loadColor;
+
+      // Add event listener to save the color when the user selects a new one
+      document
+        .getElementById("colorSelect")
+        .addEventListener("change", saveColor);
+    </script>
+  </body>
+</html>

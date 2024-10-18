@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Offline Caching Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>Offline Caching Demo</h1>
+    </header>
+    <p>This webpage is designed to be accessible even when you're offline. The content has been cached using a service worker, ensuring a seamless user experience.</p>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('Service worker registered with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.error('Service worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>
+
+<script type="module">
+// Service worker code
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+        caches.open('static-cache').then(function(cache) {
+            return cache.addAll([
+                './',
+                './style.css' // Assuming you have a CSS file
+            ]);
+        })
+    );
+});
+
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            return response || fetch(event.request);
+        })
+    );
+});
+</script>
